@@ -25,9 +25,10 @@ async def on_message(message):
 
 if __name__ == '__main__':
     token = os.environ['DISCORD_TOKEN']
-    wolfram_token = os.environ['WOLFRAM_TOKEN']
+    wolfram_token = os.environ['WOLFRAM_APPID']
 
     for extension in extensions:
         bot.load_extension(extension)
 
     bot.run(token)
+
