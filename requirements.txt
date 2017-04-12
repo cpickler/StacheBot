@@ -1,6 +1,4 @@
 discord.py==0.15.1
-guildwars2api==0.7.1
-sqlalchemy==1.1.4
 psycopg2==2.6.2
 aiohttp==1.0.5
 mcstatus==2.2
