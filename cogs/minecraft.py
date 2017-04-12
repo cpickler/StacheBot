@@ -30,7 +30,13 @@ class Minecraft:
             for player in status.players.sample:
                 if first is False:
                     online_players += ', '
-                online_players += player.name
+                name = ''
+                for c in player.name:
+                    if c == '_':
+                        name += '\_'
+                    else:
+                        name += c
+                online_players += name
                 first = False
         else:
             online_players = 'No one is online!'
