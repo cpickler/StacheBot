@@ -28,7 +28,6 @@ class WolframAlpha:
         link_payload = {'i': query}
 
         link += urllib.parse.urlencode(link_payload)
-        print(link)
 
         with aiohttp.ClientSession() as session:
             async with session.get(url, params=payload) as resp:
