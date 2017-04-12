@@ -19,6 +19,5 @@ class Minecraft:
         server = MinecraftServer.lookup(default_MC)
         embed = discord.Embed(title=default_MC)
         status = server.status()
-        print(status.players.online)
         await self.bot.say(embed=embed)
 

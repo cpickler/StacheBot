@@ -9,7 +9,7 @@ extensions = [
     'cogs.minecraft'
 ]
 
-bot = commands.Bot(command_prefix='!', description=description)
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(), description=description)
 
 
 @bot.event

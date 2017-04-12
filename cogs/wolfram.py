@@ -31,7 +31,6 @@ class WolframAlpha:
 
         with aiohttp.ClientSession() as session:
             async with session.get(url, params=payload) as resp:
-                print(resp.headers)
                 desc = await resp.text()
                 embed = discord.Embed(title=query, description=desc, colour=discord.Colour.orange())
                 embed.set_footer(text='Wolfram|Alpha')
