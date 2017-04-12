@@ -29,7 +29,7 @@ class Minecraft:
             first = True
             for player in status.players.sample:
                 if first is False:
-                    online_players += '\n'
+                    online_players += ', '
                 online_players += player.name
                 first = False
         else:
