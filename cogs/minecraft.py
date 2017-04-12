@@ -15,9 +15,9 @@ class Minecraft:
         self.bot = bot
 
     @commands.command()
-    async def status(self):
-        embed = discord.Embed(title=default_MC)
-        server = MinecraftServer.lookup(default_MC)
+    async def status(self, mc_server=default_MC):
+        embed = discord.Embed(title=mc_server)
+        server = MinecraftServer.lookup(mc_server)
         status = server.status()
 
         # Add Green color for a server that's up
