@@ -24,7 +24,7 @@ class Minecraft:
         embed.colour = discord.Colour.green()
 
         # Add a list of online players
-        if len(status.players.sample) >= 1:
+        if status.players.sample is not None:
             online_players = ''
             first = True
             for player in status.players.sample:
