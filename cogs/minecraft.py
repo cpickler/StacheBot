@@ -56,7 +56,7 @@ class Minecraft:
             else:
                 del_char = True
 
-        embed.description = "```" + clean_description + "```"
+        embed.description = clean_description
         embed.set_footer(text="Ping: {ping} ms".format(ping=status.latency))
         await self.bot.say(embed=embed)
 
