@@ -2,9 +2,12 @@ import discord
 from discord.ext import commands
 from mcstatus import MinecraftServer
 import os
+from pymongo import MongoClient
 
 default_MC = os.environ["DEFAULT_MC"]
 
+mongo = MongoClient(os.environ['MONGODB_URI'])
+db = mongo.stachebot
 
 def setup(bot):
     bot.add_cog(Minecraft(bot))
@@ -14,8 +17,20 @@ class Minecraft:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def status(self, mc_server=default_MC):
+    @commands.command(pass_context=True)
+    async def status(self, ctx, mc_server="default"):
+        server = ctx.message.server.id
+
+        # Get the corresponding server address
+        cursor = getattr(db, server).find_one()
+        if cursor is None:
+            mc_server = mc_server
+        else:
+            try:
+                mc_server = cursor['mcservers'][mc_server]
+            except KeyError:
+                mc_server = mc_server
+
         embed = discord.Embed(title=mc_server)
         server = MinecraftServer.lookup(mc_server)
         status = server.status()
