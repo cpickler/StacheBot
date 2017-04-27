@@ -3,3 +3,4 @@ psycopg2==2.6.2
 aiohttp==1.0.5
 mcstatus==2.2
 iso8601
+pymongo
