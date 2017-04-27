@@ -7,7 +7,7 @@ from pymongo import MongoClient
 default_MC = os.environ["DEFAULT_MC"]
 
 mongo = MongoClient(os.environ['MONGODB_URI'])
-db = mongo.stachebot
+db = db = getattr(mongo, os.environ['MONGODB_NAME'])
 
 def setup(bot):
     bot.add_cog(Minecraft(bot))

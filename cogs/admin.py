@@ -7,7 +7,7 @@ from pymongo import MongoClient
 config_file = open('config.json', 'r+')
 
 mongo = MongoClient(os.environ['MONGODB_URI'])
-db = mongo.stachebot
+db = getattr(mongo, os.environ['MONGODB_NAME'])
 
 config = json.load(config_file)
 
