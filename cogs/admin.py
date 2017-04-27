@@ -1,11 +1,12 @@
 import json
 from discord.ext import commands
 import discord
+import os
 from pymongo import MongoClient
 
 config_file = open('config.json', 'r+')
 
-mongo = MongoClient()
+mongo = MongoClient(os.environ['MONGODB_URI'])
 db = mongo.stachebot
 
 config = json.load(config_file)
