@@ -21,6 +21,7 @@ class Minecraft:
     @commands.command(pass_context=True)
     async def status(self, ctx, mc_server="default"):
         server = ctx.message.server.id
+        mc_server = str.lower(mc_server)
 
         # Get the corresponding server address
         cursor = getattr(db, server).find_one()

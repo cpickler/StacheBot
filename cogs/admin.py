@@ -43,6 +43,8 @@ class Admin:
     @config.command(enabled=True, pass_context=True)
     @commands.has_permissions(administrator=True)
     async def add(self, ctx, field, option, value):
+        field = str.lower(field)
+        option = str.lower(option)
         server = ctx.message.server.id
         sub_field = '.'.join([field, option])
         if valid_field(field):
