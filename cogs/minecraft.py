@@ -3,6 +3,7 @@ from discord.ext import commands
 from mcstatus import MinecraftServer
 import os
 from pymongo import MongoClient
+from socket import gaierror
 
 default_MC = os.environ["DEFAULT_MC"]
 
@@ -32,46 +33,52 @@ class Minecraft:
                 mc_server = mc_server
 
         embed = discord.Embed(title=mc_server)
-        server = MinecraftServer.lookup(mc_server)
-        status = server.status()
 
-        # Add Green color for a server that's up
-        embed.colour = discord.Colour.green()
+        try:
+            server = MinecraftServer.lookup(mc_server)
+            status = server.status()
+            # Add Green color for a server that's up
+            embed.colour = discord.Colour.green()
 
-        # Add a list of online players
-        if status.players.sample is not None:
-            online_players = ''
-            first = True
-            for player in status.players.sample:
-                if first is False:
-                    online_players += ', '
-                name = ''
-                for c in player.name:
-                    if c == '_':
-                        name += '\_'
-                    else:
-                        name += c
-                online_players += name
-                first = False
-        else:
-            online_players = 'No one is online!'
-
-        embed.add_field(name="Players Online: {online}/{max}".format(online=status.players.online,
-                                                                    max=status.players.max),
-                        value=online_players)
-
-        # Remove formatting codes from the description
-        clean_description = ''
-        del_char = False
-        for i in status.description:
-            if del_char is True:
-                del_char = False
-            elif i != '§':
-                clean_description += i
+            # Add a list of online players
+            if status.players.sample is not None:
+                online_players = ''
+                first = True
+                for player in status.players.sample:
+                    if first is False:
+                        online_players += ', '
+                    name = ''
+                    for c in player.name:
+                        if c == '_':
+                            name += '\_'
+                        else:
+                            name += c
+                    online_players += name
+                    first = False
             else:
-                del_char = True
+                online_players = 'No one is online!'
 
-        embed.description = clean_description
-        embed.set_footer(text="Ping: {ping} ms".format(ping=status.latency))
+            embed.add_field(name="Players Online: {online}/{max}".format(online=status.players.online,
+                                                                         max=status.players.max),
+                            value=online_players)
+
+            # Remove formatting codes from the description
+            clean_description = ''
+            del_char = False
+            for i in status.description:
+                if del_char is True:
+                    del_char = False
+                elif i != '§':
+                    clean_description += i
+                else:
+                    del_char = True
+
+            embed.description = clean_description
+            embed.set_footer(text="Ping: {ping} ms".format(ping=status.latency))
+
+        except(gaierror, ConnectionRefusedError):
+            embed.colour = discord.Colour.red()
+            embed.description = "Uh oh, It looks like the server is offline. :c"
+
         await self.bot.say(embed=embed)
 
