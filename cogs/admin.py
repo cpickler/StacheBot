@@ -42,12 +42,12 @@ class Admin:
 
     @config.command(enabled=True, pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def add(self, ctx, field, option, value):
-        field = str.lower(field)
+    async def add(self, ctx, option, field, value):
         option = str.lower(option)
+        field = str.lower(field)
         server = ctx.message.server.id
-        sub_field = '.'.join([field, option])
-        if valid_field(field):
-            getattr(db, server).update_one({"field": field}, {'$set': {sub_field: value}}, upsert=True)
+        sub_field = '.'.join([option, field])
+        if valid_field(option):
+            getattr(db, server).update_one({"field": option}, {'$set': {sub_field: value}}, upsert=True)
 
 
