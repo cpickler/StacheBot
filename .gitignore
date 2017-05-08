@@ -1,0 +1,9 @@
+.idea/StacheBot.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+cogs/__pycache__/admin.cpython-35.pyc
+cogs/__pycache__/minecraft.cpython-35.pyc
+cogs/__pycache__/wolfram.cpython-35.pyc
