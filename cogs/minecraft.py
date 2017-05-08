@@ -5,10 +5,8 @@ import os
 from pymongo import MongoClient
 from socket import gaierror
 
-default_MC = os.environ["DEFAULT_MC"]
-
 mongo = MongoClient(os.environ['MONGODB_URI'])
-db = db = getattr(mongo, os.environ['MONGODB_NAME'])
+db = getattr(mongo, os.environ['MONGODB_NAME'])
 
 def setup(bot):
     bot.add_cog(Minecraft(bot))
@@ -24,7 +22,7 @@ class Minecraft:
         mc_server = str.lower(mc_server)
 
         # Get the corresponding server address
-        cursor = getattr(db, server).find_one()
+        cursor = getattr(db, server).find_one({'field': 'mcservers'})
         if cursor is None:
             mc_server = mc_server
         else:
