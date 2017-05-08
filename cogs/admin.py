@@ -70,4 +70,3 @@ class Admin:
         if valid_option(option):
             getattr(db, server).update_one({"field": option}, {'$set': {sub_field: value}}, upsert=True)
 
-
