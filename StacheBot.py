@@ -35,8 +35,6 @@ async def on_voice_state_update(before, after):
         finally:
             pass
 
-
-
 if __name__ == '__main__':
     token = os.environ['DISCORD_TOKEN']
     wolfram_token = os.environ['WOLFRAM_APPID']
