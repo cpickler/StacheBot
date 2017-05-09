@@ -7,7 +7,8 @@ description = """StacheBot"""
 extensions = [
     'cogs.wolfram',
     'cogs.minecraft',
-    'cogs.admin'
+    'cogs.admin',
+    'cogs.rdm'
 ]
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(), description=description)
