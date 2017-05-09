@@ -13,21 +13,32 @@ class RDM:
     @commands.command()
     async def roll(self, roll_expression):
         """
-        Roll some dice combination
+        Roll some dice combination, maximum sides and die are 100.
         :param die: [# of die]d[# of sides per die]
         :return: result of rolls
         """
-        # TODO set limits to max # of dice and sides
         # Get necessary values from command
-        m = re.match("^(?P<die>\d+)[dD](?P<sides>\d+)$", roll_expression)
-        die = int(m.group('die'))
-        sides = int(m.group('sides'))
+        m = re.match("^(?P<die>\d*)[dD](?P<sides>\d+)$", roll_expression)
+        try:
+            if m.group('die') == '':
+                die = 1
+            else:
+                die = int(m.group('die'))
+            sides = int(m.group('sides'))
+        except AttributeError:
+            await self.bot.say("Invalid roll expression, please use the form `[die]D[sides]` .")
+            return
 
-        # Roll the dice
-        rolls = [random.randint(1, sides) for dice in range[die]]
-        total = sum(rolls)
+        # Verify an acceptable amount of dies and sides
+        if die <= 100 and sides <= 100:
+            # Roll the dice
+            rolls = [random.randint(1, sides) for dice in range(die)]
+            total = sum(rolls)
 
-        # Print out the result
-        roll_str = ' + '.join(rolls)
-        result_str = '**{total}** = {rolls}'.format(total=total, rolls=roll_str)
-        await self.bot.say(result_str)
+            # Print out the result
+            roll_str = '` + `'.join(map(str, rolls))
+            result_str = '**{total}** = `{rolls}`'.format(total=total, rolls=roll_str)
+            await self.bot.say(result_str)
+        else:
+            # Return an error about the limits
+            await self.bot.say("Oops! A maximum of 100 die with up to 100 sides each can be rolled per command.")
