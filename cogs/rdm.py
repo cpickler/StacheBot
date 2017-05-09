@@ -42,3 +42,13 @@ class RDM:
         else:
             # Return an error about the limits
             await self.bot.say("Oops! A maximum of 100 die with up to 100 sides each can be rolled per command.")
+
+    @commands.command(aliases=['flip', 'coin', 'coinflip'])
+    async def coinFlip(self):
+        flip = random.getrandbits(1)
+        if flip is True:
+            result = 'Heads'
+        else:
+            result = 'Tails'
+
+        await self.bot.say('You flipped **{}**.'.format(result))
