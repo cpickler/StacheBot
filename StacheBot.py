@@ -1,6 +1,6 @@
 import os
+
 from discord.ext import commands
-import helpers
 
 description = """StacheBot"""
 
@@ -28,13 +28,12 @@ async def on_message(message):
 
 @bot.event
 async def on_voice_state_update(before, after):
-    if helpers.config(after.server.id, 'moveOnDeafen'):
-        if after.voice.self_deaf is True:
-            afk = after.server.afk_channel
-            try:
-                await bot.move_member(after, afk)
-            finally:
-                pass
+    if after.voice.self_deaf is True:
+        afk = after.server.afk_channel
+        try:
+            await bot.move_member(after, afk)
+        finally:
+            pass
 
 if __name__ == '__main__':
     token = os.environ['DISCORD_TOKEN']
